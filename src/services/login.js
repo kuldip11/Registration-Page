@@ -11,7 +11,10 @@ export const userLogIn = (userDetails) => {
         // body:data
     }
     fetch(`https://wordpress.betadelivery.com/interview/api/login`, payload)
-    .then((response) => {console.log(response); return response?.json()})
-    .then((response) => {console.log(response);})
+    .then((response) => {return response?.json()})
+    .then((response) => {
+        console.log(response);
+        localStorage.setItem('userId', JSON.stringify.stringify(response?.userId))
+    })
     .catch(err => {console.log('err=>>', err)})
 }

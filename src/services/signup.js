@@ -11,7 +11,7 @@ export const userSignUp = (userDetails) => {
         // body:data
     }
     fetch('https://wordpress.betadelivery.com/interview/api/register-user', payload)
-    .then((response) => {console.log(response); return response?.json()})
+    .then((response) => {return response?.json()})
     .then((response) => {console.log(response);})
     .catch(err => {console.log('err=>>', err)})
 }
