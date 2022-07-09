@@ -4,23 +4,29 @@ import {message} from 'antd'
 const UserProfile = ({setPage}) => {
     const [user, setUser] = useState({})
     const logOutHandler = () => {
+        localStorage.removeItem('userId')
         setPage('login')
     }
     const userId =  JSON.parse(localStorage.getItem('userId'));
-    if(!userId){
-        setPage('login')
-    }
+    
+    useEffect(()=> {
+        if(!userId){
+            setPage('login')
+        }
+    },[])
 
     useEffect(()=> {
-        fetch(`https://wordpress.betadelivery.com/interview/api/user/${userId}`)
-        .then((response) => {
-            if(response.status === 200)
-                return Response.json()
-        })
-        .then((response) => {setUser(response)})
-        .catch((error) => {
-            message.warnning(error?.error)
-        })
+        if(userId){
+            fetch(`https://wordpress.betadelivery.com/interview/api/user/${userId}`)
+            .then((response) => {
+                if(response.status === 200)
+                    return Response.json()
+            })
+            .then((response) => {setUser(response)})
+            .catch((error) => {
+                message.warnning(error?.error)
+            })
+        }
     },[])
 
     return (
