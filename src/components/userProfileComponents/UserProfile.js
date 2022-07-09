@@ -43,7 +43,7 @@ const UserProfile = ({setPage}) => {
                         <h4>{user?.email}</h4>
                     </div>
                     <div className='tab-col-1-1'>
-                        <h3>Phone Number</h3>
+                        <h3>Number</h3>
                         <h4>{user?.number}</h4>
                     </div>
                     <div className='tab-col-1-1'>

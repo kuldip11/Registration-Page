@@ -53,3 +53,15 @@ border-right: 1px solid rgb(127, 122, 122);
 .tab-col2{
     border-bottom: none;
 }
+@media screen and (max-width: 575px){
+    .user-profile h3,
+    .user-profile h4,
+    .tab-col-2-2 h3,
+    .tab-col-2-2 h4,
+    .tab-col-3 h3,
+    .tab-col-3 h4{
+        margin-left: 5px;
+        font-size: 13px;
+        overflow: hidden;
+    }
+}
