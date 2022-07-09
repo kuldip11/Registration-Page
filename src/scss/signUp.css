@@ -96,23 +96,24 @@
 
 @media screen and (max-width: 575px){
     .signup-form, .sign-up{
-        width: 50vw !important;
+        width: 90vw !important;
     }
     .signup-row Input{
-        width: 20vw !important;
+        width: 90vw !important;
     }
     .pick{
-        width: 20vw !important;
+        width: 90vw !important;
     }
     .signup-row{
-        width: 50vw !important;
+        width: 90vw !important;
+        flex-direction: column;
         justify-content: space-between !important;
     }
     .signup-row .address Input {
-        width: 50vw !important;
+        width: 90vw !important;
     }
     .password .ant-input-affix-wrapper-has-feedback{
-        width: 20vw !important;
+        width: 90vw !important;
     }
 }
 
