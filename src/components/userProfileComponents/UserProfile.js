@@ -20,7 +20,7 @@ const UserProfile = ({setPage}) => {
             fetch(`https://wordpress.betadelivery.com/interview/api/user/${userId}`)
             .then((response) => {
                 if(response.status === 200)
-                    return Response.json()
+                    return response.json()
             })
             .then((response) => {setUser(response)})
             .catch((error) => {

@@ -8,6 +8,7 @@ import ThankYou from './components/signUpComponents/ThankYou';
 
 function App() {
   const [page, setPage] = useState('signup')
+  
   const display = () => {
     switch(page){
       case 'signup': return <SignUp setPage={setPage}/>
@@ -16,7 +17,7 @@ function App() {
       case 'userprofile': return <UserProfile setPage={setPage}/>;
     }
   }
-  console.log(page)
+
   return (
     <div className="App">
       {display()}
