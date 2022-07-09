@@ -39,22 +39,23 @@ const SignUp = ({setPage}) => {
         },
     };
     const handleFormSubmit = async () => {
-        form.validateFields()
-            .then(async(values) => {
-                try{
-                    const userSignUP = await userSignUp(values)
-                    setPage('thankyou')
-                }
-                catch(error){
-                    console.log(error)
-                }
+        setPage('thankyou')
+        // form.validateFields()
+            // .then(async(values) => {
+            //     try{
+            //         const userSignUP = await userSignUp(values)
+            //         setPage('thankyou')
+            //     }
+            //     catch(error){
+            //         console.log(error)
+            //     }
 
-            })
-            // .then(() => {form.resetFields()})
+            // })
+            // // .then(() => {form.resetFields()})
 
-            .catch((info) => {
-                console.log('validation failed', info);
-            });
+            // .catch((info) => {
+            //     console.log('validation failed', info);
+            // });
     };
 
 

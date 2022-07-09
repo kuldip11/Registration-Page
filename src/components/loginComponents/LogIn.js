@@ -16,20 +16,21 @@ const LogIn = ({setPage}) => {
 
     const handleFormSubmit = async (e) => {
         e.stopPropagation()
-        form.validateFields()
-            .then(async(values) => {
-                try{
-                    console.log(values)
-                    const loggedIn = await userLogIn(values)
-                    // setPage('userprofile')
-                }
-                catch(error){
-                    console.log(error)
-                }
-            })
-            .catch((info) => {
-                console.log('validation failed', info);
-            });
+        // form.validateFields()
+        //     .then(async(values) => {
+        //         try{
+        //             console.log(values)
+        //             // const loggedIn = await userLogIn(values)
+        //             setPage('userprofile')
+        //         }
+        //         catch(error){
+        //             console.log(error)
+        //         }
+        //     })
+        //     .catch((info) => {
+        //         console.log('validation failed', info);
+        //     });
+        setPage('userprofile')
     };
 
     return (
@@ -64,7 +65,7 @@ const LogIn = ({setPage}) => {
                 <spam 
                     className='switchPage'
                     onClick={pageChangeHandler}
-                >Signup</spam>
+                > Signup</spam>
             </h4>
         </div>
   )

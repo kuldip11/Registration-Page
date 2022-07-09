@@ -9,11 +9,11 @@ const UserProfile = ({setPage}) => {
     }
     const userId =  JSON.parse(localStorage.getItem('userId'));
     
-    useEffect(()=> {
-        if(!userId){
-            setPage('login')
-        }
-    },[])
+    // useEffect(()=> {
+    //     if(!userId){
+    //         setPage('login')
+    //     }
+    // },[])
 
     useEffect(()=> {
         if(userId){
