@@ -20,7 +20,6 @@ const UserProfile = ({setPage}) => {
         if(userId){
             userApi.post(`/user/${userId}`,)
                 .then((response) => {
-                    console.log(response)
                     if (response?.data?.status === 'success') {
                         console.log(response)
                         setUser(response?.data?.data)
