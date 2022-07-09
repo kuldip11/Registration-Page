@@ -46,13 +46,12 @@ const SignUp = ({setPage}) => {
         }
         userApi.post('/register-user', data)
             .then((response) => {
-                console.log(response)
                 if (response?.data?.status === 'success') {
                     form.resetFields()
                     setPage('thankyou')
                 }
                 else if(response?.data?.status === 'error'){
-                    message.error(response?.data?.error)
+                    message.error(response?.data?.message)
                 }
             })
             .catch((error)=> {
