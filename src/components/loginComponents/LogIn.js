@@ -1,12 +1,11 @@
 import React from 'react'
-import {Form, Input} from 'antd';
+import {Form, Input, message} from 'antd';
 import { 
     emailRules,
     passwordRules} from '../../helper/rules';
-import { userLogIn } from '../../services/login';
+import { userApi } from '../../lib/API';
 
 const LogIn = ({setPage}) => {
-    const userId = JSON.parse(localStorage.getItem('userId'));
     const [form] = Form.useForm();
     const {Item} = Form;
 
@@ -14,22 +13,43 @@ const LogIn = ({setPage}) => {
         setPage('signup')
     }
 
+    const login = (logInDetails) => {
+        var data = new FormData();
+        for (const property in logInDetails) {
+            data.append(`${property}`, logInDetails[property]);
+        }
+        userApi.post('/login', data)
+            .then((response) => {
+                console.log(response)
+                if (response?.data?.status === 'success') {
+                    console.log(response)
+                    localStorage.setItem('userId', JSON.stringify(response?.data?.data?.id))
+                    form.resetFields()
+                    setPage('userprofile')
+                }
+                else if(response?.data?.status === 'error'){
+                    message.error(response?.data?.error)
+                }
+            })
+            .catch((error)=> {
+                console.log(error)
+            })
+    }
+
     const handleFormSubmit = async (e) => {
         e.stopPropagation()
-        // form.validateFields()
-        //     .then(async(values) => {
-        //         try{
-        //             console.log(values)
-        //             // const loggedIn = await userLogIn(values)
-        //             setPage('userprofile')
-        //         }
-        //         catch(error){
-        //             console.log(error)
-        //         }
-        //     })
-        //     .catch((info) => {
-        //         console.log('validation failed', info);
-        //     });
+        form.validateFields()
+            .then(async(values) => {
+                try{
+                    login(values)
+                }
+                catch(error){
+                    console.log(error)
+                }
+            })
+            .catch((info) => {
+                console.log('validation failed', info);
+            });
         setPage('userprofile')
     };
 

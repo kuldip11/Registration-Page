@@ -1,6 +1,7 @@
 import { LogoutOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import {message} from 'antd'
+import { userApi } from '../../lib/API'
 const UserProfile = ({setPage}) => {
     const [user, setUser] = useState({})
     const logOutHandler = () => {
@@ -9,23 +10,28 @@ const UserProfile = ({setPage}) => {
     }
     const userId =  JSON.parse(localStorage.getItem('userId'));
     
-    // useEffect(()=> {
-    //     if(!userId){
-    //         setPage('login')
-    //     }
-    // },[])
+    useEffect(()=> {
+        if(!userId){
+            setPage('login')
+        }
+    },[])
 
     useEffect(()=> {
         if(userId){
-            fetch(`https://wordpress.betadelivery.com/interview/api/user/${userId}`)
-            .then((response) => {
-                if(response.status === 200)
-                    return response.json()
-            })
-            .then((response) => {setUser(response)})
-            .catch((error) => {
-                message.warnning(error?.error)
-            })
+            userApi.post(`/user/${userId}`,)
+                .then((response) => {
+                    console.log(response)
+                    if (response?.data?.status === 'success') {
+                        console.log(response)
+                        setUser(response?.data?.data)
+                    }
+                    else if(response?.data?.status === 'error'){
+                        message.error(response?.data?.error)
+                    }
+                })
+                .catch((error)=> {
+                    console.log(error)
+                })
         }
     },[])
 
@@ -44,11 +50,11 @@ const UserProfile = ({setPage}) => {
                     </div>
                     <div className='tab-col-1-1'>
                         <h3>Number</h3>
-                        <h4>{user?.number}</h4>
+                        <h4>{user?.phone}</h4>
                     </div>
                     <div className='tab-col-1-1'>
                         <h3>Age</h3>
-                        <h4>{user?.age}</h4>
+                        <h4>{user?.dob}</h4>
                     </div>
                     <div ></div>
                 </div>
@@ -72,7 +78,7 @@ const UserProfile = ({setPage}) => {
                 </div>
                 <div className='tabel-col-3'>
                     <h3>Location</h3>
-                    <h4>{user?.location}</h4>
+                    <h4>{user?.address}</h4>
                 </div>
             </div>
         </div>

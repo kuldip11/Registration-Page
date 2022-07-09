@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import 'antd/dist/antd.css'
-import { Checkbox, Form, Input} from 'antd';
+import { Checkbox, Form, Input, message} from 'antd';
 import ReCAPTCHA from "react-google-recaptcha";
 import { 
     addressRules,
@@ -13,7 +13,7 @@ import {
     numberRules,
     passwordRules,
     stateRules } from '../../helper/rules';
-import { userSignUp } from '../../services/signup';
+import { userApi } from '../../lib/API';
 
 const SignUp = ({setPage}) => {
     const [location, setLocation] = useState([])
@@ -38,24 +38,44 @@ const SignUp = ({setPage}) => {
           },
         },
     };
-    const handleFormSubmit = async () => {
-        setPage('thankyou')
-        // form.validateFields()
-            // .then(async(values) => {
-            //     try{
-            //         const userSignUP = await userSignUp(values)
-            //         setPage('thankyou')
-            //     }
-            //     catch(error){
-            //         console.log(error)
-            //     }
 
-            // })
-            // // .then(() => {form.resetFields()})
+    const signup = (userDetails) => {
+        var data = new FormData();
+        for (const property in userDetails) {
+            data.append(`${property}`, userDetails[property]);
+        }
+        userApi.post('/register-user', data)
+            .then((response) => {
+                console.log(response)
+                if (response?.data?.status === 'success') {
+                    form.resetFields()
+                    setPage('thankyou')
+                }
+                else if(response?.data?.status === 'error'){
+                    message.error(response?.data?.error)
+                }
+            })
+            .catch((error)=> {
+                console.log(error)
+            })
+    }
 
-            // .catch((info) => {
-            //     console.log('validation failed', info);
-            // });
+
+    const handleFormSubmit = async (e) => {
+        e.stopPropagation()
+        form.validateFields()
+            .then(async(values) => {
+                try{
+                    await signup(values)
+                }
+                catch(error){
+                    console.log(error)
+                }
+
+            })
+            .catch((info) => {
+                console.log('validation failed', info);
+            });
     };
 
 
